@@ -19,7 +19,7 @@ from setuptools import setup
 
 setup(
     name='cloudify-iworkflow-plugin',
-    version='1.0',
+    version='1.1',
     author='Cloudify',
     author_email='hello@cloudify.co',
     license='LICENSE',

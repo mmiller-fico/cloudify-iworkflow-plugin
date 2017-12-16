@@ -24,6 +24,7 @@ PAYLOAD_KEY_VARS = "vars"
 PAYLOAD_KEY_TABLES = "tables"
 PAYLOAD_KEY_PROPERTIES = "properties"
 PAYLOAD_KEY_LINK = "link"
+PAYLOAD_KEY_SSLCERTS = "serverTierSslCerts"
 
 
 def create_payload(tenant_name,
@@ -32,6 +33,7 @@ def create_payload(tenant_name,
                    vars,
                    tables,
                    properties,
+                   serverTierSslCerts,
                    proto,
                    reference_hostname,
                    reference_port):
@@ -49,6 +51,8 @@ def create_payload(tenant_name,
     result.update(_vars(vars))
     result.update(_tables(tables))
     result.update(_properties(properties))
+    if serverTierSslCerts is not None:
+        result.update(_certs(serverTierSslCerts))
 
     return result
 
@@ -98,3 +102,6 @@ def _tables(tables):
 
 def _properties(properties):
     return {PAYLOAD_KEY_PROPERTIES: properties}
+
+def _certs(serverTierSslCerts):
+    return {PAYLOAD_KEY_SSLCERTS: serverTierSslCerts}

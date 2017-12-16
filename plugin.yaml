@@ -16,7 +16,7 @@
 plugins:
   iworkflow:
     package_name: cloudify-iworkflow-plugin
-    package_version: '1.0'
+    package_version: '1.1'
     executor: central_deployment_agent
 
 node_types:
@@ -63,6 +63,7 @@ node_types:
       cloudify.interfaces.lifecycle:
         create:
           implementation: iworkflow.iworkflow_plugin.service.create_service
+          max_retries: 3
           inputs:
             vars:
               default: []
@@ -70,10 +71,16 @@ node_types:
               default: []
             properties:
               default: []
+            serverTierSslCerts:
+              default: 
+            bigip_params:
+              default: 
             reference_hostname:
               type: string
+              default: localhost
             retry_interval:
               type: integer
               default: 10
         delete:
           implementation: iworkflow.iworkflow_plugin.service.delete_service
+          max_retries: 3

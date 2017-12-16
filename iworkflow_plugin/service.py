@@ -38,10 +38,11 @@ def create_service(vars,
                    tables,
                    properties,
                    connection_params,
-                   bigip_params,
                    reference_hostname,
                    retry_interval,
-                   ctx):
+                   ctx,
+                   serverTierSslCerts=None,
+                   bigip_params=None):
     """
     Creates request payload
     and sends a 'create service' request
@@ -62,6 +63,7 @@ def create_service(vars,
                                 vars,
                                 tables,
                                 properties,
+                                serverTierSslCerts,
                                 reference_hostname,
                                 ctx)
 
@@ -69,12 +71,13 @@ def create_service(vars,
                             retry_interval,
                             ctx)
 
-    iworkflow_service.sync(bigip_params.get(PARAMS_IP),
-                           bigip_params.get(PARAMS_SYNC_GROUP),
-                           bigip_params.get(PARAMS_USER),
-                           bigip_params.get(PARAMS_PASSWORD),
-                           retry_interval
-                           )
+    if bigip_params is not None:
+        iworkflow_service.sync(bigip_params.get(PARAMS_IP),
+                               bigip_params.get(PARAMS_SYNC_GROUP),
+                               bigip_params.get(PARAMS_USER),
+                               bigip_params.get(PARAMS_PASSWORD),
+                               retry_interval
+                               )
 
 
 @load_connection_params
@@ -125,6 +128,7 @@ def _create_service_request(iworkflow_service,
                             vars,
                             tables,
                             properties,
+                            serverTierSslCerts,
                             reference_hostname,
                             ctx):
     try:
@@ -132,6 +136,7 @@ def _create_service_request(iworkflow_service,
                                          vars,
                                          tables,
                                          properties,
+                                         serverTierSslCerts,
                                          reference_hostname)
         ctx.logger.info("Service {0} has been requested".format(
             iworkflow_service.service_name))

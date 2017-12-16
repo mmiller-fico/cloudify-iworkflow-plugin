@@ -42,6 +42,7 @@ class IWorkflowService:
                        vars,
                        tables,
                        properties,
+                       serverTierSslCerts,
                        reference_hostname):
 
         data = payload.create_payload(self.tenant_name,
@@ -50,6 +51,7 @@ class IWorkflowService:
                                       vars,
                                       tables,
                                       properties,
+                                      serverTierSslCerts,
                                       self._get_proto(),
                                       reference_hostname,
                                       self.connection_params.get("port"))
